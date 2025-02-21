@@ -1,0 +1,191 @@
+.container {
+    width: 400px;
+    height: 500px;
+    /* aspect-ratio: 4 / 5; */
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* border: 2px solid black; */
+    /* padding: 5px; */
+    box-sizing: border-box;
+}
+
+.headingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 26pt;
+    text-align: center;
+    padding: 14px;
+}
+
+.singlePicContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    gap: 0px;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+}
+
+.imageContainer img {
+    width: 100%;
+    height: auto;
+
+    object-fit: cover;
+}
+
+.nameText {
+    color: #ff0000;
+    align-self: center;
+}
+
+.bottomLine {
+    width: 100%;
+    margin-top: 3px;
+    border-bottom: 3px solid #ff0000;
+}
+
+.detailText {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.detailTextCollar {
+    font-size: 9pt;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.data1Container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: left;
+    padding: 3px;
+}
+
+.dataContainer {
+    /* background-color: aqua; */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: bolder;
+    font-size: 18pt;
+    text-align: left;
+    padding: 5px;
+    max-height: 170px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.dataContainer span {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.lengthMoreContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: bolder;
+    font-size: 15pt;
+    text-align: left;
+    padding: 5px;
+    max-height: 170px;
+    word-wrap: break-word;
+    white-space: normal;
+
+}
+
+.contactContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20pt;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.contactContainer span {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.contactMoreContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    padding: 13px;
+    margin-top: auto;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.rewardContainer {
+    width: 40%;
+    height: 30px;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+
+}
+
+.rewardContainerSub {
+    width: 100%;
+    height: 30px;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+}

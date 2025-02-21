@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --primary-color: #000;
+  --bg-color-1: #c6c6b1;
+  --bg-color-2: #b8b8b8;
+  background: linear-gradient(180deg, var(--bg-color-1), var(--bg-color-2)); 
+  --menu-item-active-color:#000;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent; 
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--menu-item-active-color); 
+  border-radius: 5px; 
+  border: 1px solid var(--menu-item-active-color); 
+}

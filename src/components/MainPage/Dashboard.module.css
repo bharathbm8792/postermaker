@@ -1,0 +1,14 @@
+.overallContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100%; */
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
