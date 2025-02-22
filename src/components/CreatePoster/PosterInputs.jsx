@@ -199,8 +199,8 @@ const PosterInputs = () => {
 
             {(state.missingClicked === true) && (
                 <div className={styles.inputsContainer}>
-<div>
-<div>
+                    <div>
+                        <div>
                             <textarea
                                 value={textAreaInput}
                                 onChange={handleTextAreaChange}
@@ -209,9 +209,9 @@ const PosterInputs = () => {
                             />
                         </div>
                         <button onClick={handleAutofill}>Autofill</button>
-                        </div>
+                    </div>
                     <form className={styles.formContainer} onSubmit={handleSubmit}>
-                        
+
 
                         {/* Select Pet Type */}
                         <label>Select Pet <b style={{ color: "red" }}>*</b>:</label>
