@@ -1,18 +1,17 @@
 .container {
     width: 400px;
     height: 500px;
-    /* aspect-ratio: 4 / 5; */
     background-color: #fff;
     overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* border: 2px solid black; */
-    /* padding: 5px; */
     box-sizing: border-box;
+    padding-bottom: 10px;
 }
 
+/* Heading */
 .headingContainer {
     display: flex;
     align-items: center;
@@ -25,13 +24,13 @@
     padding: 14px;
 }
 
-.singlePicContainer {
+/* Image Section */
+.imageWrapper {
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    padding: 3px;
-    gap: 0px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
 }
 
 .imageContainer {
@@ -39,28 +38,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 50%;
 }
 
 .imageContainer img {
     margin: 5px;
     width: 190px;
-    height: 240px;
+    height: 258px;
     object-fit: cover;
 }
 
 .imageContainerReward img{
     margin: 5px;
     width: 190px;
-    height: 210px;
+    height: 230px;
     object-fit: cover;
 }
 
-.nameText {
-    color: #ff0000;
-    align-self: center;
-    font-size: 18pt;
-}
 
 .bottomLine {
     width: 100%;
@@ -68,69 +61,53 @@
     border-bottom: 3px solid #ff0000;
 }
 
+/* Text Styling */
 .detailText {
     padding-top: 3px;
     padding-bottom: 3px;
 }
 
 .detailTextCollar {
-    /* font-size: 9pt; */
-    padding-top: 3px;
-    padding-bottom: 3px;
+    /* padding-top: 3px; */
+    /* padding-bottom: 3px; */
     text-align: center;
 }
 
-.data1Container {
-    flex: 1;
+/* Data Containers */
+.data1Container{
     display: flex;
     flex-direction: column;
     align-items: center;
     font-weight: bold;
     font-size: 11pt;
     text-align: left;
-    padding: 3px;
+    word-wrap: break-word;
+    width: 50%;
 }
 
 .dataContainer {
-    /* background-color: aqua; */
-    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-weight: bolder;
-    font-size: 15pt;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    font-size: 11pt;
     text-align: left;
-    padding: 5px;
-    max-height: 170px;
+    /* padding: 5px; */
     word-wrap: break-word;
-    white-space: normal;
-}
-
-.dataContainer span {
-    display: block;
-    word-wrap: break-word;
-    white-space: normal;
-    max-width: 100%;
+    width: 400px;
 }
 
 .lengthMoreContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-weight: bolder;
-    font-size: 12pt;
-    text-align: left;
-    padding: 5px;
-    max-height: 170px;
-    word-wrap: break-word;
-    white-space: normal;
-
+    color: #000;
+    text-align: center;
+    /* font-size: 15pt; */
 }
 
+/* Contact Information */
 .contactContainer {
     width: 100%;
     display: flex;
+    
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -139,18 +116,11 @@
     font-weight: bold;
     font-size: 20pt;
     text-align: center;
+    
     padding: 10px;
-    margin-top: auto;
-    word-wrap: break-word;
-    white-space: normal;
     line-height: 1.2;
-}
+    margin-top: auto;
 
-.contactContainer span {
-    display: block;
-    word-wrap: break-word;
-    white-space: normal;
-    max-width: 100%;
 }
 
 .contactMoreContainer {
@@ -171,8 +141,9 @@
     line-height: 1.2;
 }
 
+/* Reward Section */
 .rewardContainer {
-    width: 40%;
+    width: 100%;
     height: 30px;
     background-color: #000;
     color: #fff;
@@ -183,7 +154,6 @@
     justify-content: center;
     padding-top: 9px;
     padding-bottom: 9px;
-
 }
 
 .rewardContainerSub {
@@ -196,5 +166,4 @@
     align-items: center;
     justify-content: center;
     position: relative;
-
 }

@@ -26,6 +26,17 @@ const PosterInputs = () => {
         Neutered: "No",
         Reward: "No",
         RewardType: "",
+        FoundpetType: "",
+        ExpectedAge: "",
+        FoundGender: "",
+        FoundBreed: "",
+        FoundCollar: "",
+        FoundPlace: "",
+        FoundDate: "",
+        FoundTime: "",
+        FoundLandmark: "",
+        FoundIdentification: "",
+        RescuerContact: "",
         ...location.state
     });
 
@@ -45,6 +56,17 @@ const PosterInputs = () => {
         NeuteredErr: "",
         RewardErr: "",
         RewardTypeErr: "",
+        ExpectedAgeErr: "",
+        FoundGenderErr: "",
+        FoundBreedErr: "",
+        FoundCollarErr: "",
+        FoundPlaceErr: "",
+        FoundDateErr: "",
+        FoundTimeErr: "",
+        FoundLandmarkErr: "",
+        FoundIdentificationErr: "",
+        RescuerContactErr: "",
+        FoundpetTypeErr: "",
     });
 
 
@@ -53,6 +75,7 @@ const PosterInputs = () => {
         { value: "Cat", label: "Cat" },
         { value: "Bird", label: "Bird" },
         { value: "Rabbit", label: "Rabbit" },
+        { value: "Other", label: "Other" },
     ];
 
     const handleChange = (e) => {
@@ -65,8 +88,73 @@ const PosterInputs = () => {
             petType: selectedOption ? selectedOption.value : "",
         }));
     };
+    const handleSelectChangeFound = (selectedOption) => {
+        setState((prevState) => ({
+            ...prevState,
+            FoundpetType: selectedOption ? selectedOption.value : "",
+        }));
+    };
 
+    const FoundValidate = () => {
+        let errors = {};
+        let isValid = true;
+        if (!state.FoundpetType) {
+            errors.FoundpetTypeErr = "Pet Type is required";
+            isValid = false;
+        }
 
+        if (!state.ExpectedAge.trim()) {
+            errors.ExpectedAgeErr = "Expected Age is required";
+            isValid = false;
+        }
+        if (!state.FoundGender.trim()) {
+            errors.FoundGenderErr = "Gender is required";
+            isValid = false;
+        }
+        if (!state.FoundBreed.trim()) {
+            errors.FoundBreedErr = "Breed is required";
+            isValid = false;
+        }
+        if (!state.FoundPlace.trim()) {
+            errors.FoundPlaceErr = "Found Place is required";
+            isValid = false;
+        }
+        if (!state.FoundDate.trim()) {
+            errors.FoundDateErr = "Found Date is required";
+            isValid = false;
+        } else {
+            const foundDate = new Date(state.FoundDate); // Convert input to Date object
+            const today = new Date(); // Get today's date
+
+            // Remove time part from both dates for an accurate date-only comparison
+            today.setHours(0, 0, 0, 0);
+            foundDate.setHours(0, 0, 0, 0);
+
+            if (foundDate > today) {
+                errors.FoundDateErr = "Found Date cannot be a future date";
+                isValid = false;
+            }
+        }
+        // if (!state.FoundTime.trim()) {
+        //     errors.FoundTimeErr = "Found Time is required";
+        //     isValid = false;
+        // }
+        if (!state.FoundCollar.trim()) {
+            errors.FoundCollarErr = "Collar colour is required";
+            isValid = false;
+        }
+        if (!state.FoundLandmark.trim()) {
+            errors.FoundLandmarkErr = "Landmark is required";
+            isValid = false;
+        }
+        if (!state.RescuerContact.trim()) {
+            errors.RescuerContactErr = "Rescuer's contact is required";
+            isValid = false;
+        }
+
+        setError(errors);
+        return isValid;
+    }
     const validateForm = () => {
         let errors = {};
         let isValid = true;
@@ -110,6 +198,18 @@ const PosterInputs = () => {
         if (!state.MissingDate.trim()) {
             errors.MissingDateErr = "Missing date is required";
             isValid = false;
+        } else {
+            const missingDate = new Date(state.MissingDate); // Convert input to Date object
+            const today = new Date(); // Get today's date
+
+            // Remove time part from both dates for an accurate date-only comparison
+            today.setHours(0, 0, 0, 0);
+            missingDate.setHours(0, 0, 0, 0);
+
+            if (missingDate > today) {
+                errors.MissingDateErr = "Missing Date cannot be a future date";
+                isValid = false;
+            }
         }
         if (state.MissingTime.length !== 0) {
             if (!state.MissingTime.trim()) {
@@ -132,6 +232,7 @@ const PosterInputs = () => {
             isValid = false;
         }
 
+
         setError(errors);
         return isValid;
     };
@@ -143,6 +244,14 @@ const PosterInputs = () => {
             navigate("/generateposter", { state: state });
         }
     };
+
+    const handleFoundSubmit = (e) => {
+        e.preventDefault();
+        if (FoundValidate()) {
+            console.log("Form Submitted", state);
+            navigate("/generateposter", { state: state });
+        }
+    }
 
     const handleBackClick = (e) => {
         e.preventDefault();
@@ -164,31 +273,107 @@ const PosterInputs = () => {
         setState(prevState => ({ ...prevState, ...parsedData }));
     };
 
-    const parseTextData = (text) => {
+    const handleAutofillFound = () => {
+        const parsedData = parseTextDataFound(textAreaInput);
+        setState(prevState => ({ ...prevState, ...parsedData }));
+    }
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const [day, month, year] = dateString.split("/");
+        return `${year}-${month}-${day}`; // Convert to yyyy-MM-dd
+    };
+
+    const formatTime = (timeString) => {
+        if (!timeString) return "";
+
+        // If it's already in HH:mm format, return as is
+        if (timeString.match(/^\d{2}:\d{2}$/)) {
+            return timeString;
+        }
+
+        // Convert 12-hour format (e.g., "10:30 AM") to 24-hour (HH:mm)
+        const match = timeString.match(/(\d{1,2}):?(\d{2})?\s*([APap][Mm])/);
+        if (!match) return timeString;
+
+        let [_, hour, minutes = "00", period] = match;
+        hour = parseInt(hour, 10);
+
+        if (period.toUpperCase() === "PM" && hour !== 12) {
+            hour += 12;
+        } else if (period.toUpperCase() === "AM" && hour === 12) {
+            hour = 0;
+        }
+
+        return `${String(hour).padStart(2, "0")}:${minutes.padStart(2, "0")}`; // Ensures HH:mm format
+    };
+
+
+    const parseTextDataFound = (text) => {
         const data = {};
         const regexMapping = {
-            Name: /Name:\s*(.*)/,
-            Breed: /Breed:\s*(.*)/,
-            Age: /Age:\s*(.*)/,
-            Gender: /Gender:\s*(.*)/,
-            Neutered: /(Neutered)/,
-            Collarcolor: /Collar colour:\s*(.*)/,
-            Missingplace: /Last Seen:\s*(.*) on/,
-            MissingDate: /on (\d{1,2}[a-zA-Z]* \w+ \d{4}) at/,
-            MissingTime: /at (\d{1,2}[ap]m)/,
-            Contact: /Contact:\s*(\d+)/,
-            RewardAmount: /Reward:\s*Rs ([\d,]+)/
+            FoundpetType: /Lost\s+(\w+)\s+Found/i,
+            FoundGender: /Gender:\s*(\w+)/i,
+            FoundBreed: /Breed:\s*(.+)/i,
+            ExpectedAge: /Expected\s*age:\s*([\d\-]+\s*\w*)/i,
+            FoundCollar: /Collar\s*colour:\s*(.+)/i,
+            FoundPlace: /Found\s*place:\s*(.+)/i,
+            FoundDate: /Found\s*date:\s*(\d{2}\/\d{2}\/\d{4})/i,
+            FoundTime: /Found\s*time:\s*(\d{1,2}:\d{2}|\d{1,2}\s*[APap][Mm])/i,
+            FoundLandmark: /Landmark:\s*(.+)/i,
+            RescuerContact: /Rescuer's\s*contact\s*number:\s*(\d{10,20})/i,
         };
 
         Object.keys(regexMapping).forEach((key) => {
             const match = text.match(regexMapping[key]);
             if (match) {
-                data[key] = match[1] || "Yes";
+                let value = match[1] || "Yes";
+
+                // Convert date & time formats
+                if (key === "FoundDate") value = formatDate(value);
+                if (key === "FoundTime") value = formatTime(value);
+
+                data[key] = value;
             }
         });
 
         return data;
     };
+
+    const parseTextData = (text) => {
+        const data = {};
+        const regexMapping = {
+            petType: /Missing\s+(\w+)/i,
+            Name: /Name:\s*(.+)/i,
+            Breed: /Breed:\s*(.+)/i,
+            Age: /Age:\s*(\d+\s*\w*)/i,
+            Gender: /Gender:\s*(\w+)/i,
+            FurColor: /Fur Color:\s*(.+)/i,
+            Neutered: /Neutered\s*or\s*not:\s*(Yes|No)/i,
+            Collarcolor: /Collar\s*Colour:\s*(.+)/i,
+            Missingplace: /Last\s*seen:\s*(.+)/i,
+            MissingDate: /Missing\s*date:\s*(\d{2}\/\d{2}\/\d{4})/i,
+            MissingTime: /Missing\s*time:\s*(\d{1,2}:\d{2}|\d{1,2}\s*[APap][Mm])/i,
+            Landmark: /Landmark:\s*(.+)/i,
+            Contact: /Contact:\s*(\d{10,20})/i,
+        };
+
+        Object.keys(regexMapping).forEach((key) => {
+            const match = text.match(regexMapping[key]);
+            if (match) {
+                let value = match[1] || "Yes";
+
+                // Convert date & time formats
+                if (key === "MissingDate") value = formatDate(value);
+                if (key === "MissingTime") value = formatTime(value);
+
+                data[key] = value;
+            }
+        });
+
+        return data;
+    };
+
     return (
         <div className={styles.overallContainer}>
             <button className={styles.backButton} onClick={handleBackClick}>BACK</button>
@@ -414,6 +599,153 @@ const PosterInputs = () => {
                             </div>
                         )}
                         {error.RewardTypeErr && <p className={styles.error}>{error.RewardTypeErr}</p>}
+
+                        {/* Submit Button */}
+                        <button type="submit" className={styles.submitButton}>Submit</button>
+                    </form>
+
+                </div>
+            )}
+            {(state.foundClicked === true) && (
+                <div className={styles.inputsContainer}>
+                    <div>
+                        <div>
+                            <textarea
+                                value={textAreaInput}
+                                onChange={handleTextAreaChange}
+                                placeholder="Paste found pet details here..."
+                                className={styles.responsiveTextarea}
+                            />
+                        </div>
+                        <button onClick={handleAutofillFound}>Autofill</button>
+                    </div>
+                    <form className={styles.formContainer} onSubmit={handleFoundSubmit}>
+
+
+                        {/* Select Pet Type */}
+                        <label>Select Pet <b style={{ color: "red" }}>*</b>:</label>
+                        <Select
+                            options={PetOptions}
+                            placeholder="-- SELECT PET TYPE --"
+                            onChange={handleSelectChangeFound}
+                            isSearchable={true}
+                            className={styles.select_option}
+                            menuPosition="fixed"
+                            value={PetOptions.find(option => option.value === state.FoundpetType) || null}
+                        />
+                        {error.FoundpetTypeErr && <p className={styles.error}>{error.FoundpetTypeErr}</p>}
+
+
+
+                        <label>Expected Age <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="ExpectedAge"
+                            placeholder="Enter Pet Expected Age"
+                            value={state.ExpectedAge}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.ExpectedAgeErr && <p className={styles.error}>{error.ExpectedAgeErr}</p>}
+
+                        <label>Gender <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="FoundGender"
+                            placeholder="Enter Gender"
+                            value={state.FoundGender}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundGenderErr && <p className={styles.error}>{error.FoundGenderErr}</p>}
+
+                        <label>Breed <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="FoundBreed"
+                            placeholder="Enter Breed"
+                            value={state.FoundBreed}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundBreedErr && <p className={styles.error}>{error.FoundBreedErr}</p>}
+
+
+
+                        <label>Collar Color <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="FoundCollar"
+                            placeholder="Enter Collar Color"
+                            value={state.FoundCollar}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundCollarErr && <p className={styles.error}>{error.FoundCollarErr}</p>}
+
+                        <label>Found Place <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="FoundPlace"
+                            placeholder="Enter Found Place"
+                            value={state.FoundPlace}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundPlaceErr && <p className={styles.error}>{error.FoundPlaceErr}</p>}
+
+                        <label>Found Date <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="date"
+                            name="FoundDate"
+                            value={state.FoundDate}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundDateErr && <p className={styles.error}>{error.FoundDateErr}</p>}
+
+                        <label>Found Time :</label>
+                        <input
+                            type="time"
+                            name="FoundTime"
+                            value={state.FoundTime}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundTimeErr && <p className={styles.error}>{error.FoundTimeErr}</p>}
+
+                        <label>Landmark <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="FoundLandmark"
+                            placeholder="Enter Landmark"
+                            value={state.FoundLandmark}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundLandmarkErr && <p className={styles.error}>{error.FoundLandmarkErr}</p>}
+
+                        <label>Identification Mark :</label>
+                        <input
+                            type="text"
+                            name="FoundIdentification"
+                            placeholder="Enter Identification Mark"
+                            value={state.FoundIdentification}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.FoundIdentificationErr && <p className={styles.error}>{error.FoundIdentificationErr}</p>}
+
+                        <label>Rescuer's Contact Number <b style={{ color: "red" }}>*</b>:</label>
+                        <input
+                            type="text"
+                            name="RescuerContact"
+                            placeholder="Enter Rescuer's Contact Number"
+                            value={state.RescuerContact}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+                        {error.RescuerContactErr && <p className={styles.error}>{error.RescuerContactErr}</p>}
 
                         {/* Submit Button */}
                         <button type="submit" className={styles.submitButton}>Submit</button>

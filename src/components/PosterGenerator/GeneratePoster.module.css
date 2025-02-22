@@ -20,11 +20,7 @@
     width: 200px;
     height: 200px;
 }
-.buttonContainer {
-    /* display: flex; */
-    /* justify-content: center; */
-    margin-top: 10px;
-}
+
 
 .confirmButton{
     background-color: rgb(169, 169, 176);
@@ -32,6 +28,22 @@
     margin-top: 0px;
 }
 
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+
+}
+
+
+@media (max-width: 768px) {
+    .buttonContainer {
+        flex-direction: column;
+    }
+    .cropContainer{
+       margin-bottom: 140px;
+    }
+}
 .editButton {
     background-color: #007bff;
     color: white;
