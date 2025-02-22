@@ -26,3 +26,54 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+ 
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+/MOCK_DATA.json
+
+
+# testing
+/coverage
+
+# production
+/build
+
+/dist
+/dist.zip
+/dist_bkp
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# macOS
+*.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
