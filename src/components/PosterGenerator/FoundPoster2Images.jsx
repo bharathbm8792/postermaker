@@ -1,6 +1,6 @@
 import styles from './FoundPoster2Images.module.css';
 
-import image from '../../../public/dog.jpeg';
+import image from '../../assets/dog.jpeg';
 function FoundPoster2Images(props) {
     const data = props.data;
     // console.log("DATA", data)

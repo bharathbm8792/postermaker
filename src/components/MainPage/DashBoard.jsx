@@ -1,6 +1,7 @@
 import styles from './Dashboard.module.css';
 import { useNavigate } from "react-router-dom";
-import logo from '/public/logo.jpg'
+// import logo from '/public/logo.jpg'
+import logo from '../../assets/logo.jpg';
 
 function DashBoard() {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import styles from './MissingPoster.module.css';
 
-import image from '../../../public/dog.jpeg';
+import image from '../../assets/dog.jpeg';
 function MissingPoster(props) {
     const data = props.data;
     // console.log("DATA", data)

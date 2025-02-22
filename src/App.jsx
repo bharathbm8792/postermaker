@@ -8,11 +8,12 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Router basename="/missingpetsbangalore">
-            <Suspense fallback={<Loader />}>
-              <AppRoutes />
-            </Suspense>
-          </Router>
+      {/* <Router basename="/missingpetsbangalore"> */}
+      <Router basename="/">
+        <Suspense fallback={<Loader />}>
+          <AppRoutes />
+        </Suspense>
+      </Router>
     </ErrorBoundary>
   )
 }
