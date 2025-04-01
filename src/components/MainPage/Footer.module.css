@@ -1,0 +1,74 @@
+.footer {
+    background-color: var(--nav-bar-bg-seconary);
+    color: var(--text-color);
+    padding: 10px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+
+
+
+.instagramLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    background: linear-gradient(45deg, #f1c40f, #e1306c, #8e44ad);  
+    /* instagram color */
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s;
+}
+
+.link:hover {
+    background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6);
+    /* for change in gradient on hover */
+    transform: scale(1.1);
+}
+
+.versionContainer {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.version {
+    margin-top: 2px;
+    font-size: 1rem;
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+}
+
+.tooltip {
+    margin-top: 1px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: nowrap;
+}
+.version:hover{
+    visibility: hidden;
+
+}
+.version:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    animation: scrollingTooltip 5s linear infinite;
+}
+

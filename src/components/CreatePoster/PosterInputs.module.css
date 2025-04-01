@@ -1,24 +1,31 @@
 .overallContainer {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     background: var(--background-color);
     padding: 20px;
 }
 
-.container {
+label, input,textarea {
+    font-family: 'Poppins', sans-serif;
+}
+
+.radioContainer{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.rewardOptions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .backButton {
     position: absolute;
-    top: 10px;
+    top: 120px;
     right: 10px;
 }
 
@@ -38,31 +45,137 @@
     gap: 10px;
 }
 
+.select_option {
+    width: 100%;
+    border-radius: 5px;
+    /* margin-bottom: 20px; */
+}
+
 .inputField {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    /* margin-bottom: 20px; */
 }
 
-.error{
+.error {
     color: #ff0000;
 }
 
 .responsiveTextarea {
-    width: 100%; 
-    min-height: 100px; 
-    height: auto; 
+    width: 100%;
+    min-height: 100px;
+    height: auto;
     max-height: 400px;
-    max-width: 600px; 
+    max-width: 600px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: vertical; 
+    resize: vertical;
 }
 
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.backButton,
+.autoFillButton,
+.submitButton {
+    padding: 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.autoFillButton {
+    margin-bottom: 20px;
+}
+
+.missingButton {
+    background-color: #ff4f6c;
+}
+
+.missingButton:hover {
+    background-color: #ff3b56;
+    transform: scale(1.05);
+}
+
+.foundButton {
+    background-color: #58a6ff;
+}
+
+.backButton,
+.autoFillButton,
+.submitButton {
+    background-color: #6caefa;
+}
+
+.foundButton:hover {
+    background-color: #3f8fd1;
+    transform: scale(1.05);
+}
+
+.backButton:hover,
+.autoFillButton:hover,
+.submitButton:hover {
+    background-color: #3588cc;
+    transform: scale(1.05);
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+
 @media (max-width: 480px) {
+    label, input,textarea {
+        font-family: 'LED Dot-Matrix', 'Poppins', sans-serif;
+
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+    }
+
+    .button,
+    .autoFillButton,
+    .submitButton {
+        font-family: 'LED Dot-Matrix', 'Poppins', sans-serif;
+        padding: 8px 10px;
+        font-size: 15px;
+    }
+
+    .backButton {
+        font-family: 'LED Dot-Matrix', 'Poppins', sans-serif;
+        padding: 8px 10px;
+        font-size: 15px;
+        top: 90px;
+        right: 10px;
+    }
+
     .inputsContainer {
         width: 100%;
         padding: 15px;

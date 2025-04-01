@@ -75,7 +75,6 @@ const PosterInputs = () => {
         { value: "Cat", label: "Cat" },
         { value: "Bird", label: "Bird" },
         { value: "Rabbit", label: "Rabbit" },
-        { value: "Other", label: "Other" },
     ];
 
     const handleChange = (e) => {
@@ -103,18 +102,18 @@ const PosterInputs = () => {
             isValid = false;
         }
 
-        if (!state.ExpectedAge.trim()) {
-            errors.ExpectedAgeErr = "Expected Age is required";
-            isValid = false;
-        }
-        if (!state.FoundGender.trim()) {
-            errors.FoundGenderErr = "Gender is required";
-            isValid = false;
-        }
-        if (!state.FoundBreed.trim()) {
-            errors.FoundBreedErr = "Breed is required";
-            isValid = false;
-        }
+        // if (!state.ExpectedAge.trim()) {
+        //     errors.ExpectedAgeErr = "Expected Age is required";
+        //     isValid = false;
+        // }
+        // if (!state.FoundGender.trim()) {
+        //     errors.FoundGenderErr = "Gender is required";
+        //     isValid = false;
+        // }
+        // if (!state.FoundBreed.trim()) {
+        //     errors.FoundBreedErr = "Breed is required";
+        //     isValid = false;
+        // }
         if (!state.FoundPlace.trim()) {
             errors.FoundPlaceErr = "Found Place is required";
             isValid = false;
@@ -139,14 +138,14 @@ const PosterInputs = () => {
         //     errors.FoundTimeErr = "Found Time is required";
         //     isValid = false;
         // }
-        if (!state.FoundCollar.trim()) {
-            errors.FoundCollarErr = "Collar colour is required";
-            isValid = false;
-        }
-        if (!state.FoundLandmark.trim()) {
-            errors.FoundLandmarkErr = "Landmark is required";
-            isValid = false;
-        }
+        // if (!state.FoundCollar.trim()) {
+        //     errors.FoundCollarErr = "Collar colour is required";
+        //     isValid = false;
+        // }
+        // if (!state.FoundLandmark.trim()) {
+        //     errors.FoundLandmarkErr = "Landmark is required";
+        //     isValid = false;
+        // }
         if (!state.RescuerContact.trim()) {
             errors.RescuerContactErr = "Rescuer's contact is required";
             isValid = false;
@@ -168,28 +167,28 @@ const PosterInputs = () => {
             isValid = false;
         }
         // if (state.Age.length !== 0) {
-        if (!state.Age.trim()) {
-            errors.AgeErr = "Age is required";
-            isValid = false;
-        }
+        // if (!state.Age.trim()) {
+        //     errors.AgeErr = "Age is required";
+        //     isValid = false;
         // }
-        if (state.Gender.length !== 0) {
-            if (!state.Gender.trim()) {
-                errors.GenderErr = "Gender is required";
-                isValid = false;
-            }
-        }
-        if (state.Breed.length !== 0) {
-            if (!state.Breed.trim()) {
-                errors.BreedErr = "Breed is required";
-                isValid = false;
-            }
-        }
+        // }
+        // if (state.Gender.length !== 0) {
+        //     if (!state.Gender.trim()) {
+        //         errors.GenderErr = "Gender is required";
+        //         isValid = false;
+        //     }
+        // }
+        // if (state.Breed.length !== 0) {
+        //     if (!state.Breed.trim()) {
+        //         errors.BreedErr = "Breed is required";
+        //         isValid = false;
+        //     }
+        // }
         // if (state.Collarcolor.length !== 0) {
-        if (!state.Collarcolor.trim()) {
-            errors.CollarcolorErr = "Collar color is required";
-            isValid = false;
-        }
+        // if (!state.Collarcolor.trim()) {
+        //     errors.CollarcolorErr = "Collar color is required";
+        //     isValid = false;
+        // }
         // }
         if (!state.Missingplace.trim()) {
             errors.MissingplaceErr = "Missing place is required";
@@ -211,24 +210,24 @@ const PosterInputs = () => {
                 isValid = false;
             }
         }
-        if (state.MissingTime.length !== 0) {
-            if (!state.MissingTime.trim()) {
-                errors.MissingTimeErr = "Missing time is required";
-                isValid = false;
-            }
-        }
-        if (!state.Landmark.trim()) {
-            errors.LandmarkErr = "Landmark is required";
-            isValid = false;
-        }
-        if (state.identification.length !== 0) {
-            if (!state.identification.trim()) {
-                errors.identificationErr = "Identification mark is required";
-                isValid = false;
-            }
-        }
+        // if (state.MissingTime.length !== 0) {
+        //     if (!state.MissingTime.trim()) {
+        //         errors.MissingTimeErr = "Missing time is required";
+        //         isValid = false;
+        //     }
+        // }
+        // if (!state.Landmark.trim()) {
+        //     errors.LandmarkErr = "Landmark is required";
+        //     isValid = false;
+        // }
+        // if (state.identification.length !== 0) {
+        //     if (!state.identification.trim()) {
+        //         errors.identificationErr = "Identification mark is required";
+        //         isValid = false;
+        //     }
+        // }
         if (!state.Contact.trim()) {
-            errors.ContactErr = "Contact number is required";
+            errors.ContactErr = "Contact is required";
             isValid = false;
         }
 
@@ -321,6 +320,7 @@ const PosterInputs = () => {
             FoundDate: /Found\s*date:\s*(\d{2}\/\d{2}\/\d{4})/i,
             FoundTime: /Found\s*time:\s*(\d{1,2}:\d{2}|\d{1,2}\s*[APap][Mm])/i,
             FoundLandmark: /Landmark:\s*(.+)/i,
+            FoundIdentification: /Identification:\s*(.+)/i,
             RescuerContact: /Rescuer's\s*contact\s*number:\s*(\d{10,20})/i,
         };
 
@@ -355,7 +355,9 @@ const PosterInputs = () => {
             MissingDate: /Missing\s*date:\s*(\d{2}\/\d{2}\/\d{4})/i,
             MissingTime: /Missing\s*time:\s*(\d{1,2}:\d{2}|\d{1,2}\s*[APap][Mm])/i,
             Landmark: /Landmark:\s*(.+)/i,
+            identification: /Identification:\s*(.+)/i,
             Contact: /Contact:\s*(\d{10,20})/i,
+            RewardAmount: /Reward:\s*(\d{4,5})/i,
         };
 
         Object.keys(regexMapping).forEach((key) => {
@@ -377,9 +379,27 @@ const PosterInputs = () => {
     return (
         <div className={styles.overallContainer}>
             <button className={styles.backButton} onClick={handleBackClick}>BACK</button>
-            <div className={styles.container}>
+            {/* <div className={styles.container}>
                 {!state.foundClicked && <button className={styles.actionButton} onClick={() => setState({ ...state, missingClicked: true })}>Missing Pet Poster</button>}
                 {!state.missingClicked && <button className={styles.actionButton} onClick={() => setState({ ...state, foundClicked: true })}>Lost Pet Found Poster</button>}
+            </div> */}
+            <div className={styles.buttonContainer}>
+                {!state.foundClicked && (
+                    <button
+                        className={`${styles.button} ${styles.missingButton}`}
+                        onClick={() => setState({ ...state, missingClicked: true })}
+                    >
+                        Missing Pet Poster
+                    </button>
+                )}
+                {!state.missingClicked && (
+                    <button
+                        className={`${styles.button} ${styles.foundButton}`}
+                        onClick={() => setState({ ...state, foundClicked: true })}
+                    >
+                        Lost Pet Found Poster
+                    </button>
+                )}
             </div>
 
             {(state.missingClicked === true) && (
@@ -393,7 +413,7 @@ const PosterInputs = () => {
                                 className={styles.responsiveTextarea}
                             />
                         </div>
-                        <button onClick={handleAutofill}>Autofill</button>
+                        <button className={styles.autoFillButton} onClick={handleAutofill}>Autofill</button>
                     </div>
                     <form className={styles.formContainer} onSubmit={handleSubmit}>
 
@@ -459,10 +479,10 @@ const PosterInputs = () => {
                         <label>Neutered or Not <b style={{ color: "red" }}>*</b>:</label>
                         <div className={styles.radioContainer}>
                             <label>
-                                <input type="radio" name="Neutered" value="Yes" onChange={handleChange} checked={state.Neutered === "Yes"} /> Yes
+                                <input type="radio" name="Neutered" value="Yes" onChange={handleChange} checked={state.Neutered === "Yes"} />Yes
                             </label>
                             <label>
-                                <input type="radio" name="Neutered" value="No" onChange={handleChange} checked={state.Neutered === "No"} /> No
+                                <input type="radio" name="Neutered" value="No" onChange={handleChange} checked={state.Neutered === "No"} />No
                             </label>
                         </div>
                         {error.NeuteredErr && <p className={styles.error}>{error.NeuteredErr}</p>}
@@ -617,7 +637,7 @@ const PosterInputs = () => {
                                 className={styles.responsiveTextarea}
                             />
                         </div>
-                        <button onClick={handleAutofillFound}>Autofill</button>
+                        <button className={styles.autoFillButton} onClick={handleAutofillFound}>Autofill</button>
                     </div>
                     <form className={styles.formContainer} onSubmit={handleFoundSubmit}>
 

@@ -1,3 +1,10 @@
+/* @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap'); */
+@import url('https://fonts.cdnfonts.com/css/led-dot-matrix');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +14,15 @@
 
 :root {
   --primary-color: #000;
-  --bg-color-1: #c6c6b1;
-  --bg-color-2: #b8b8b8;
-  background: linear-gradient(180deg, var(--bg-color-1), var(--bg-color-2)); 
-  --menu-item-active-color:#000;
+  --text-color:#fff;
+  --bg-color-1: #fff;
+  --nav-bar-bg-primary: #fff;
+  --nav-bar-bg-seconary:#87CEEB;
+  --nav-bar-bg:linear-gradient(135deg, var(--nav-bar-bg-primary), var(--nav-bar-bg-seconary));
+  /* --bg-color-2: #b8b8b8; */
+  /* background: linear-gradient(180deg, var(--bg-color-1), var(--bg-color-2));  */
+  background: var(--bg-color-1);
+  --menu-item-active-color:#87CEEB;
 
   overflow-x: hidden;
   overflow-y: auto;
@@ -21,7 +33,7 @@
 }
 
 *::-webkit-scrollbar-track {
-  background-color: transparent; 
+  background-color: #fff; 
 }
 
 *::-webkit-scrollbar-thumb {
