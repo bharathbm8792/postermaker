@@ -198,15 +198,15 @@ function GeneratePoster() {
     return (
         <div className={styles.overallContainer}>
             <div>
-                <button onClick={() => { navigate("/createposter") }}>Go to Home Page</button>
+                <button className={styles.editButton} onClick={() => { navigate("/createposter") }}>Go to Home Page</button>
             </div>
-            <p>Generated Poster</p>
+            <p className={styles.text}>Generated Poster</p>
 
             <div>
-                <button onClick={() => setSelectedOption(1)}>Poster with 1 Image</button>
+                <button className={styles.editButton} onClick={() => setSelectedOption(1)}>Poster with 1 Image</button>
             </div>
             <div>
-                <button onClick={() => setSelectedOption(2)}>Poster with 2 Images</button>
+                <button className={styles.editButton} onClick={() => setSelectedOption(2)}>Poster with 2 Images</button>
             </div>
             {formData.missingClicked === true &&
                 <div className={styles.buttonContainer}>
