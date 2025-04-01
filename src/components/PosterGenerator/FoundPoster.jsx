@@ -28,11 +28,12 @@ function FoundPoster(props) {
     return (
         <div className={styles.container}>
             <div className={styles.headingContainer}>
-                <span>LOST {data.FoundpetType.toUpperCase()} FOUND</span>
-            </div>
+                {data.FoundHeading.length === 0 ? <span>LOST {data.FoundpetType.toUpperCase()} FOUND</span> :
+                    <span className={data.FoundHeading.length > 16 ? styles.longHeading : ''}>{data.FoundHeading.toUpperCase()}</span>
+                }            </div>
             <div className={styles.singlePicContainer}>
-            <div className={data.Reward === "Yes" ?styles.imageContainerReward: styles.imageContainer }>
-            <img src={data.croppedImage} alt=   {`${data.FoundpetType} Image`} />
+                <div className={data.Reward === "Yes" ? styles.imageContainerReward : styles.imageContainer}>
+                    <img src={data.croppedImage} alt={`${data.FoundpetType} Image`} />
                     {/* <img src={image} alt={`${data.petType} Image`} width={130} height={150} /> */}
 
                 </div>
@@ -51,8 +52,8 @@ function FoundPoster(props) {
                 {data.FoundPlace && (<span className={styles.detailText}>Found Place: {data.FoundPlace} on {formatDate(data.FoundDate)}{data.FoundTime ? ` at ${formatTime(data.FoundTime)}` : ""}</span>)}
                 {data.FoundLandmark && <span className={styles.detailText}>Landmark: {data.FoundLandmark}</span>}
                 {data.FoundIdentification && <span className={styles.detailText}>{data.FoundIdentification}</span>}
-                </div>
-        
+            </div>
+
 
             <div className={`${styles.contactContainer} ${isContactLong ? styles.contactMoreContainer : ""}`}>
                 <span>Rescuer's Contact : {data.RescuerContact}</span>

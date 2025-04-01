@@ -29,7 +29,9 @@ function FoundPoster2Images(props) {
     return (
         <div className={styles.container}>
             <div className={styles.headingContainer}>
-                <span>LOST {data.FoundpetType.toUpperCase()} FOUND</span>
+                {data.FoundHeading.length === 0 ? <span>LOST {data.FoundpetType.toUpperCase()} FOUND</span> :
+                    <span className={data.FoundHeading.length > 16 ? styles.longHeading : ''}>{data.FoundHeading.toUpperCase()}</span>
+                }
             </div>
             <div className={styles.singlePicContainer}>
                 <div className={data.Reward === "Yes" ? styles.imageContainerReward : styles.imageContainer}>

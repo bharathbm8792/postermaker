@@ -26,6 +26,7 @@ const PosterInputs = () => {
         Neutered: "No",
         Reward: "No",
         RewardType: "",
+        Heading: "",
         FoundpetType: "",
         ExpectedAge: "",
         FoundGender: "",
@@ -37,6 +38,8 @@ const PosterInputs = () => {
         FoundLandmark: "",
         FoundIdentification: "",
         RescuerContact: "",
+        FoundHeading: "",
+        textAreaInput: "",
         ...location.state
     });
 
@@ -68,6 +71,8 @@ const PosterInputs = () => {
         RescuerContactErr: "",
         FoundpetTypeErr: "",
     });
+
+    // const [textAreaInput, setTextAreaInput] = useState("");
 
 
     const PetOptions = [
@@ -238,6 +243,7 @@ const PosterInputs = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (validateForm()) {
             console.log("Form Submitted", state);
             navigate("/generateposter", { state: state });
@@ -261,19 +267,19 @@ const PosterInputs = () => {
             setState({ ...state, missingClicked: false, foundClicked: false })
         }
     }
-    const [textAreaInput, setTextAreaInput] = useState("");
 
     const handleTextAreaChange = (e) => {
-        setTextAreaInput(e.target.value);
+        setState(prevState => ({ ...prevState, textAreaInput: e.target.value }));
     };
 
     const handleAutofill = () => {
-        const parsedData = parseTextData(textAreaInput);
+
+        const parsedData = parseTextData(state.textAreaInput);
         setState(prevState => ({ ...prevState, ...parsedData }));
     };
 
     const handleAutofillFound = () => {
-        const parsedData = parseTextDataFound(textAreaInput);
+        const parsedData = parseTextDataFound(state.textAreaInput);
         setState(prevState => ({ ...prevState, ...parsedData }));
     }
 
@@ -407,7 +413,7 @@ const PosterInputs = () => {
                     <div>
                         <div>
                             <textarea
-                                value={textAreaInput}
+                                value={state.textAreaInput}
                                 onChange={handleTextAreaChange}
                                 placeholder="Paste missing pet details here..."
                                 className={styles.responsiveTextarea}
@@ -431,6 +437,16 @@ const PosterInputs = () => {
                         />
                         {error.petTypeErr && <p className={styles.error}>{error.petTypeErr}</p>}
 
+                        <label>Heading :</label>
+                        <input
+                            type="text"
+                            name="Heading"
+                            placeholder="Enter Custom Heading"
+                            value={state.Heading}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
+
                         {/* Pet Name */}
                         <label>Name <b style={{ color: "red" }}>*</b>:</label>
                         <input
@@ -443,7 +459,7 @@ const PosterInputs = () => {
                         />
                         {error.NameErr && <p className={styles.error}>{error.NameErr}</p>}
 
-                        <label>Age <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Age :</label>
                         <input
                             type="text"
                             name="Age"
@@ -487,7 +503,7 @@ const PosterInputs = () => {
                         </div>
                         {error.NeuteredErr && <p className={styles.error}>{error.NeuteredErr}</p>}
 
-                        <label>Collar Color <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Collar Color :</label>
                         <input
                             type="text"
                             name="Collarcolor"
@@ -529,7 +545,7 @@ const PosterInputs = () => {
                         />
                         {error.MissingTimeErr && <p className={styles.error}>{error.MissingTimeErr}</p>}
 
-                        <label>Landmark <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Landmark :</label>
                         <input
                             type="text"
                             name="Landmark"
@@ -631,7 +647,7 @@ const PosterInputs = () => {
                     <div>
                         <div>
                             <textarea
-                                value={textAreaInput}
+                                value={state.textAreaInput}
                                 onChange={handleTextAreaChange}
                                 placeholder="Paste found pet details here..."
                                 className={styles.responsiveTextarea}
@@ -655,9 +671,17 @@ const PosterInputs = () => {
                         />
                         {error.FoundpetTypeErr && <p className={styles.error}>{error.FoundpetTypeErr}</p>}
 
+                        <label>Heading :</label>
+                        <input
+                            type="text"
+                            name="FoundHeading"
+                            placeholder="Enter Custom Heading"
+                            value={state.FoundHeading}
+                            onChange={handleChange}
+                            className={styles.inputField}
+                        />
 
-
-                        <label>Expected Age <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Expected Age :</label>
                         <input
                             type="text"
                             name="ExpectedAge"
@@ -668,7 +692,7 @@ const PosterInputs = () => {
                         />
                         {error.ExpectedAgeErr && <p className={styles.error}>{error.ExpectedAgeErr}</p>}
 
-                        <label>Gender <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Gender :</label>
                         <input
                             type="text"
                             name="FoundGender"
@@ -679,7 +703,7 @@ const PosterInputs = () => {
                         />
                         {error.FoundGenderErr && <p className={styles.error}>{error.FoundGenderErr}</p>}
 
-                        <label>Breed <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Breed :</label>
                         <input
                             type="text"
                             name="FoundBreed"
@@ -692,7 +716,7 @@ const PosterInputs = () => {
 
 
 
-                        <label>Collar Color <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Collar Color :</label>
                         <input
                             type="text"
                             name="FoundCollar"
@@ -734,7 +758,7 @@ const PosterInputs = () => {
                         />
                         {error.FoundTimeErr && <p className={styles.error}>{error.FoundTimeErr}</p>}
 
-                        <label>Landmark <b style={{ color: "red" }}>*</b>:</label>
+                        <label>Landmark :</label>
                         <input
                             type="text"
                             name="FoundLandmark"

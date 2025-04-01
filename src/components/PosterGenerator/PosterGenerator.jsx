@@ -4,9 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css"
 import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import styles from './GeneratePoster.module.css';
-import MissingPoster from "./MissingPoster";
-import MissingPoster2Images from "./MissingPoster2Images";
+import MissingPoster from "./MissingPoster.jsx";
+import MissingPoster2Images from "./MissingPoster2Images.jsx";
 import FoundPoster from "./FoundPoster.jsx";
 import FoundPoster2Images from "./FoundPoster2Images.jsx";
 
@@ -44,7 +45,7 @@ function GeneratePoster() {
     const formData = location.state;
     const posterRef = useRef(null);
 
-    const [selectedOption, setSelectedOption] = useState(formData.selectedOption ||null);
+    const [selectedOption, setSelectedOption] = useState(formData.selectedOption || null);
     // const [selectedOption, setSelectedOption] = useState(null);
 
     // const [image, setImage] = useState(null);
@@ -113,7 +114,7 @@ function GeneratePoster() {
     const handleDownload = async () => {
         if (posterRef.current) {
             const canvas = await html2canvas(posterRef.current, {
-                scale: 2,
+                scale: 4,
                 useCORS: true,
                 logging: true,
             });
@@ -126,6 +127,35 @@ function GeneratePoster() {
                 link.download = `FoundPoster.png`;
             }
             link.click();
+        }
+    };
+
+    const handleDownloadasPDF = async () => {
+        if (posterRef.current) {
+            const canvas = await html2canvas(posterRef.current, {
+                scale: 4, // Increase for better quality
+                useCORS: true,
+            });
+    
+            const imgData = canvas.toDataURL("image/png");
+    
+            // Convert px to mm (1px = 0.264583mm)
+            const pdfWidth = 400 * 0.264583; // ~105.83mm
+            const pdfHeight = 500 * 0.264583; // ~132.29mm
+    
+            const pdf = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: [pdfWidth, pdfHeight], // Custom size
+            });
+    
+            pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    
+            if (formData.missingClicked) {
+                pdf.save(`MissingPoster_${formData.Name}.pdf`);
+            } else if (formData.foundClicked) {
+                pdf.save(`FoundPoster.pdf`);
+            }
         }
     };
 
@@ -187,36 +217,36 @@ function GeneratePoster() {
                             {image && cropBtn && (
 
                                 <div className={styles.cropContainer} style={{ width: '300px', height: '300px', position: 'relative', marginRight: "30px", }}>
-                                   
-                                    <Cropper
-                                    ref={cropperRef}
-                                    src={image}
-                                    style={{ width: "100%", height: "100%" }}
-                                    aspectRatio={NaN} // Ensures square cropping
-                                    viewMode={1}
-                                    guides={true}
-                                    dragMode="move"
-                                    cropBoxResizable={true} // Allows resizing, but only in square shape
-                                    minCropBoxWidth={100} // Minimum crop box size
-                                    minCropBoxHeight={100}
-                                    ready={() => {
-                                        const cropper = cropperRef.current.cropper;
-                                        cropper.setCropBoxData({
-                                            width: 200, // Initial size
-                                            height: 200,
-                                        });
-                                    }}
-                                    cropend={() => {
-                                        const cropper = cropperRef.current.cropper;
-                                        const cropBoxData = cropper.getCropBoxData();
 
-                                        // Enforce max size (Example: 300x300)
-                                        if (cropBoxData.width > 300) {
-                                            cropper.setCropBoxData({ width: 350, height: 350 });
-                                        }
-                                    }}
-                                    crop={onCropComplete}
-                                />
+                                    <Cropper
+                                        ref={cropperRef}
+                                        src={image}
+                                        style={{ width: "100%", height: "100%" }}
+                                        aspectRatio={NaN} // Ensures square cropping
+                                        viewMode={1}
+                                        guides={true}
+                                        dragMode="move"
+                                        cropBoxResizable={true} // Allows resizing, but only in square shape
+                                        minCropBoxWidth={100} // Minimum crop box size
+                                        minCropBoxHeight={100}
+                                        ready={() => {
+                                            const cropper = cropperRef.current.cropper;
+                                            cropper.setCropBoxData({
+                                                width: 200, // Initial size
+                                                height: 200,
+                                            });
+                                        }}
+                                        cropend={() => {
+                                            const cropper = cropperRef.current.cropper;
+                                            const cropBoxData = cropper.getCropBoxData();
+
+                                            // Enforce max size (Example: 300x300)
+                                            if (cropBoxData.width > 300) {
+                                                cropper.setCropBoxData({ width: 350, height: 350 });
+                                            }
+                                        }}
+                                        crop={onCropComplete}
+                                    />
                                     {/* <div className={styles.buttonContainer} style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
                                     <button onClick={handleCropConfirm} className={styles.confirmButton}>
                                         Confirm Crop
@@ -377,6 +407,10 @@ function GeneratePoster() {
 
                     <button onClick={handleDownload} className={styles.editButton}>
                         Download Poster
+                    </button>
+
+                    <button onClick={handleDownloadasPDF} className={styles.editButton}>
+                        Download as PDF
                     </button>
 
 

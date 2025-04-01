@@ -29,11 +29,16 @@ function MissingPoster(props) {
     return (
         <div className={styles.container}>
             <div className={styles.headingContainer}>
-                <span>MISSING {data.petType.toUpperCase()}</span>
+                {
+                    data.Heading.length === 0 ?
+                        <span>MISSING {data.petType.toUpperCase()}</span> :
+                        <span className={data.Heading.length > 16 ? styles.longHeading : ''}>
+                            {data.Heading.toUpperCase()}
+                        </span>}
             </div>
             <div className={styles.singlePicContainer}>
-            <div className={data.Reward === "Yes" ?styles.imageContainerReward: styles.imageContainer }>
-            <img src={data.croppedImage} alt=   {`${data.petType} Image`} />
+                <div className={data.Reward === "Yes" ? styles.imageContainerReward : styles.imageContainer}>
+                    <img src={data.croppedImage} alt={`${data.petType} Image`} />
                     {/* <img src={image} alt={`${data.petType} Image`} width={130} height={150} /> */}
 
                 </div>
@@ -52,7 +57,7 @@ function MissingPoster(props) {
                 {data.Landmark && <span className={styles.detailText}>Landmark: {data.Landmark}</span>}
                 {data.identification && <span className={styles.detailText}>{data.identification}</span>}
             </div>
-            {data.Reward !== "No" &&  
+            {data.Reward !== "No" &&
                 <div className={`${styles.rewardContainer} ${data.RewardType === "Substantial" ? styles.rewardContainerSub : ""}`}>
                     {data.RewardType === "Substantial" && <span>Substantial reward will be given</span>}
                     {data.RewardType === "Amount" && <span>REWARD: &#8377; {data.RewardAmount} /-</span>}

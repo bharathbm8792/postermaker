@@ -29,7 +29,12 @@ function MissingPoster2Images(props) {
     return (
         <div className={styles.container}>
             <div className={styles.headingContainer}>
-                <span>MISSING {data.petType.toUpperCase()}</span>
+                {
+                    data.Heading.length === 0 ?
+                        <span>MISSING {data.petType.toUpperCase()}</span> :
+                        <span className={data.Heading.length > 16 ? styles.longHeading : ''}>
+                            {data.Heading.toUpperCase()}
+                        </span>}
             </div>
             <div className={styles.singlePicContainer}>
                 <div className={data.Reward === "Yes" ? styles.imageContainerReward : styles.imageContainer}>
@@ -52,14 +57,14 @@ function MissingPoster2Images(props) {
                     {data.Missingplace && (<span className={styles.detailText}>Last Seen: {data.Missingplace} on {formatDate(data.MissingDate)}{data.MissingTime ? ` at ${formatTime(data.MissingTime)}` : ""}</span>)}
                     {data.Landmark && <span className={styles.detailText}>Landmark: {data.Landmark}</span>}
                     {data.identification && <span className={styles.detailText}>{data.identification}</span>}
-                    {((data.identification?.length ?? 0) === 0 && (data.Landmark?.length ?? 0) < 15) && <br/>}
+                    {((data.identification?.length ?? 0) === 0 && (data.Landmark?.length ?? 0) < 15) && <br />}
 
-                {data.Reward !== "No" &&
-                    <div className={`${styles.rewardContainer} ${data.RewardType === "Substantial" ? styles.rewardContainerSub : ""}`}>
-                        {data.RewardType === "Substantial" && <span>Reward will be given</span>}
-                        {data.RewardType === "Amount" && <span>REWARD: &#8377; {data.RewardAmount} /-</span>}
-                    </div>
-                }
+                    {data.Reward !== "No" &&
+                        <div className={`${styles.rewardContainer} ${data.RewardType === "Substantial" ? styles.rewardContainerSub : ""}`}>
+                            {data.RewardType === "Substantial" && <span>Reward will be given</span>}
+                            {data.RewardType === "Amount" && <span>REWARD: &#8377; {data.RewardAmount} /-</span>}
+                        </div>
+                    }
                 </div>
 
             </div>
