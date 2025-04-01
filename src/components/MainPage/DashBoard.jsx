@@ -4,6 +4,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 // import logo from '/public/logo.jpg'
 // import logo from '../../assets/logo.jpg';
 import logo from '../../assets/LOGO.jpg';
+import createPoster from '../../assets/new.png';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
@@ -19,7 +20,12 @@ function DashBoard() {
 
             {showButton && (
                 <div className={styles.container}>
-                    <button title='Click to create poster' className={styles.createPosterButton} onClick={() => navigate('/createposter')}>
+                    <button
+                        title="Click to create poster"
+                        style={{ backgroundImage: `url(${createPoster})` }}
+                        className={styles.createPosterButton}
+                        onClick={() => navigate('/createposter')}
+                    >
                     </button>
                 </div>
             )}
