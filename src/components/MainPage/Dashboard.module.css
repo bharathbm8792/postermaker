@@ -63,6 +63,10 @@
 }
 
 @media (min-width: 300px) and (max-width: 540px) {
+    .container {
+        height: 80vh;
+    }
+
     .createPosterButton {
         width: 180px;
         height: 220px;
