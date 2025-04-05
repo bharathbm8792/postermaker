@@ -247,7 +247,7 @@ const PosterInputs = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            console.log("Form Submitted", state);
+            // console.log("Form Submitted", state);
             navigate("/generateposter", { state: state });
         }
     };
@@ -255,7 +255,7 @@ const PosterInputs = () => {
     const handleFoundSubmit = (e) => {
         e.preventDefault();
         if (FoundValidate()) {
-            console.log("Form Submitted", state);
+            // console.log("Form Submitted", state);
             navigate("/generateposter", { state: state });
         }
     }

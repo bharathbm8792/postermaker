@@ -10,6 +10,8 @@ import MissingPoster from "./MissingPoster.jsx";
 import MissingPoster2Images from "./MissingPoster2Images.jsx";
 import FoundPoster from "./FoundPoster.jsx";
 import FoundPoster2Images from "./FoundPoster2Images.jsx";
+import Loader from './components/Loader/Progress.jsx';
+
 
 function getCroppedImg(imageSrc, croppedAreaPixels) {
     return new Promise((resolve) => {
@@ -59,6 +61,11 @@ function GeneratePoster() {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [showMissingPoster, setShowMissingPoster] = useState(false);
     const [cropBtn, setCropClicked] = useState(true);
+    const cropperRef1 = useRef(null);
+    const cropperRef2 = useRef(null);
+    const [croppedImage1, setCroppedImage1] = useState(null);
+    const [croppedImage2, setCroppedImage2] = useState(null);
+    consr[loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!formData) {
@@ -111,7 +118,7 @@ function GeneratePoster() {
         }
     };
     const sendMail = async (val) => {
-        // console.log("VAL",val)
+
         const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
             redirect: "follow",
             method: "POST",
@@ -126,11 +133,33 @@ function GeneratePoster() {
                 heading: formData?.Heading || "",
                 petType: formData?.petType || "",
                 name: formData?.Name || "",
+                age: formData?.Age || "",
+                gender: formData?.Gender || "",
+                breed: formData?.Breed || "",
+                collarcolour: formData?.Collarcolor || "",
                 lastseen: formData?.Missingplace || "",
+                landmark: formData?.Landmark || "",
                 missingDate: formData?.MissingDate || "",
                 missingTime: formData?.MissingTime || "",
+                identification: formData?.identification || "",
+                RewardType: formData?.RewardType || "",
+                RewardAmount: formData?.RewardAmount || "",
                 dateTime: new Date().toLocaleString(),
-                message: formData?.Contact || "",
+                contact: formData?.Contact || "",
+                foundpetType: formData?.FoundpetType || "",
+                foundHeading: formData?.FoundHeading || "",
+                expectedAge: formData?.ExpectedAge || "",
+                foundGender: formData?.FoundGender || "",
+                foundBreed: formData?.FoundBreed || "",
+                foundCollar: formData?.FoundCollar || "",
+                foundPlace: formData?.FoundPlace || "",
+                foundLandmark: formData?.FoundLandmark || "",
+                foundIdentification: formData?.FoundIdentification || "",
+                rescuerContact: formData?.RescuerContact || "",
+                //images commented as request size is increasing and apps script is not able to handle it
+                // image1: croppedImage1 || "",
+                // image2: croppedImage2 || "",
+                // image3: croppedImage || "",
             }),
         });
         // console.log("RESP",response);
@@ -140,6 +169,7 @@ function GeneratePoster() {
     };
 
     const handleDownload = async () => {
+        setLoading(true);
         // console.log("import.meta.env.VITE_MAIL_SEND_FLG",import.meta.env.VITE_MAIL_SEND_FLG)
         // console.log("import.meta.env.VITE_MAIL_API_URL",import.meta.env.VITE_MAIL_API_URL)
         if (import.meta.env.VITE_MAIL_SEND_FLG === "1") {
@@ -167,9 +197,19 @@ function GeneratePoster() {
             }
             link.click();
         }
+        setLoading(false);
     };
 
     const handleDownloadasPDF = async () => {
+        setLoading(true);
+        if (import.meta.env.VITE_MAIL_SEND_FLG === "1") {
+            // console.log("DEBUG")
+            try {
+                await sendMail("PDF");
+            } catch (err) {
+                console.error("Email failed to send:", err);
+            }
+        }
         if (posterRef.current) {
             const canvas = await html2canvas(posterRef.current, {
                 scale: 4, // Increase for better quality
@@ -196,6 +236,8 @@ function GeneratePoster() {
                 pdf.save(`FoundPoster.pdf`);
             }
         }
+        setLoading(false);
+
     };
 
     const handleEditDetails = () => {
@@ -214,10 +256,7 @@ function GeneratePoster() {
         });
     };
     // console.log("formData", formData)
-    const cropperRef1 = useRef(null);
-    const cropperRef2 = useRef(null);
-    const [croppedImage1, setCroppedImage1] = useState(null);
-    const [croppedImage2, setCroppedImage2] = useState(null);
+
 
     const onCropComplete1 = () => {
         if (!cropperRef1.current || !cropperRef1.current.cropper) return;
@@ -239,7 +278,6 @@ function GeneratePoster() {
             <div>
                 <button className={styles.editButton} onClick={() => { navigate("/createposter") }}>Go to Home Page</button>
             </div>
-            <p className={styles.text}>Generated Poster</p>
 
             <div>
                 <button className={styles.editButton} onClick={() => setSelectedOption(1)}>Poster with 1 Image</button>
@@ -295,6 +333,10 @@ function GeneratePoster() {
                             )}
                         </div>
                     )}
+                    <br />
+                    <p className={styles.text}>Generated Poster</p>
+                    <br />
+
                     {showMissingPoster && selectedOption === 1 && (
                         <div ref={posterRef} >
                             <MissingPoster data={formData} ref={posterRef} />
@@ -445,7 +487,7 @@ function GeneratePoster() {
                     </button>
 
                     <button onClick={handleDownload} className={styles.editButton}>
-                        Download Poster
+                        Download Poster as PNG
                     </button>
 
                     <button onClick={handleDownloadasPDF} className={styles.editButton}>
@@ -460,6 +502,7 @@ function GeneratePoster() {
                     Edit Details
                 </button>
             </div>
+            {loading && <Loader />}
         </div>
     );
 }
