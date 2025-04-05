@@ -114,6 +114,7 @@ function GeneratePoster() {
         console.log("VAL",val)
         const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
             method: "POST",
+            // mode: "no-cors", 
             headers: {
                 "Content-Type": "application/json",
             },
