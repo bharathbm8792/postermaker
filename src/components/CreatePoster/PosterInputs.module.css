@@ -152,7 +152,9 @@ label, input,textarea {
 
 @media (max-width: 480px) {
     label, input,textarea {
-        font-family: 'LED Dot-Matrix', 'Poppins', sans-serif;
+        /* font-family: 'LED Dot-Matrix', 'Poppins', sans-serif; */
+        font-family:  'Poppins', sans-serif;
+
 
     }
 

@@ -4,7 +4,8 @@ import { useNavigate, Outlet } from "react-router-dom";
 // import logo from '/public/logo.jpg'
 // import logo from '../../assets/logo.jpg';
 import logo from '../../assets/LOGO.jpg';
-import createPoster from '../../assets/new.png';
+// import createPoster from '../../assets/new.png';
+import createPoster from '../../assets/generated.png';
 import NavBar from './NavBar';
 import Footer from './Footer';
 

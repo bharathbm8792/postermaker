@@ -20,25 +20,28 @@ function NavBar() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-            <div className={styles.overallContainer}>
-                <img
-                    src={logo}
-                    title='Click to view logo'
-                    alt='Missing Pets Bangalore Logo'
-                    className={styles.logo}
-                    onClick={() => { setShowModal(true) }}
-                />
+        <div className={styles.overallContainer}>
+            <img
+                src={logo}
+                title='Click to view logo'
+                alt='Missing Pets Bangalore Logo'
+                className={styles.logo}
+                onClick={() => { setShowModal(true) }}
+            />
+            <div className={styles.navBarTextcontainer}>
                 <span className={styles.heading}>Missing Pets Bengaluru</span>
-
-                {showModal && (
-                    <div className={styles.modal} onClick={() => { setShowModal(false) }}>
-                        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                            <img src={logo} alt="Logo Preview" className={styles.modalImage} />
-                            <span title='Click to close preview' className={styles.closeButton} onClick={() => { setShowModal(false) }}><IoClose size={20} /></span>
-                        </div>
-                    </div>
-                )}
+                <span className={styles.heading2}>- Poster Maker Tool</span>
             </div>
+
+            {showModal && (
+                <div className={styles.modal} onClick={() => { setShowModal(false) }}>
+                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <img src={logo} alt="Logo Preview" className={styles.modalImage} />
+                        <span title='Click to close preview' className={styles.closeButton} onClick={() => { setShowModal(false) }}><IoClose size={20} /></span>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 }
 

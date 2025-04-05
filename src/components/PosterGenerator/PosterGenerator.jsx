@@ -110,8 +110,44 @@ function GeneratePoster() {
             setShowMissingPoster(true);
         }
     };
+    const sendMail = async (val) => {
+        console.log("VAL",val)
+        const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: "1rn17ee009.bharathbm@gmail.com",
+                subject: `New Poster Downloaded as ${val}`,
+                heading: formData?.Heading || "",
+                petType: formData?.petType || "",
+                name: formData?.Name || "",
+                lastseen: formData?.Missingplace || "",
+                missingDate: formData?.MissingDate || "",
+                missingTime: formData?.MissingTime || "",
+                dateTime: new Date().toLocaleString(),
+                message: formData?.Contact || "",
+            }),
+        });
+        console.log("RESP",response);
+
+        if (!response.ok) throw new Error("Mail send failed");
+        return await response.json();
+    };
 
     const handleDownload = async () => {
+        console.log("import.meta.env.VITE_MAIL_SEND_FLG",import.meta.env.VITE_MAIL_SEND_FLG)
+        console.log("import.meta.env.VITE_MAIL_API_URL",import.meta.env.VITE_MAIL_API_URL)
+        if (import.meta.env.VITE_MAIL_SEND_FLG === "1") {
+            console.log("DEBUG")
+            try {
+                await sendMail("PNG");
+            } catch (err) {
+                console.error("Email failed to send:", err);
+            }
+        }
+
         if (posterRef.current) {
             const canvas = await html2canvas(posterRef.current, {
                 scale: 4,
@@ -136,21 +172,21 @@ function GeneratePoster() {
                 scale: 4, // Increase for better quality
                 useCORS: true,
             });
-    
+
             const imgData = canvas.toDataURL("image/png");
-    
+
             // Convert px to mm (1px = 0.264583mm)
             const pdfWidth = 400 * 0.264583; // ~105.83mm
             const pdfHeight = 500 * 0.264583; // ~132.29mm
-    
+
             const pdf = new jsPDF({
                 orientation: "portrait",
                 unit: "mm",
                 format: [pdfWidth, pdfHeight], // Custom size
             });
-    
+
             pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    
+
             if (formData.missingClicked) {
                 pdf.save(`MissingPoster_${formData.Name}.pdf`);
             } else if (formData.foundClicked) {

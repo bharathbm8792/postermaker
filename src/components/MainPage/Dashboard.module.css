@@ -17,7 +17,8 @@
 }
 
 .createPosterButton {
-    width: 280px;
+    /* width: 280px; */
+    width: 340px;
     height: 340px;
     /* background-image: url('src/assets/createPoster.png'); */
     /* background-image: url('src/assets/new.png'); */
@@ -68,7 +69,8 @@
     }
 
     .createPosterButton {
-        width: 180px;
+        /* width: 180px; */
+        width: 220px;
         height: 220px;
     }
 }
