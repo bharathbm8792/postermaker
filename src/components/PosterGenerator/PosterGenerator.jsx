@@ -111,7 +111,7 @@ function GeneratePoster() {
         }
     };
     const sendMail = async (val) => {
-        console.log("VAL",val)
+        // console.log("VAL",val)
         const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
             method: "POST",
             // mode: "no-cors", 
@@ -131,17 +131,17 @@ function GeneratePoster() {
                 message: formData?.Contact || "",
             }),
         });
-        console.log("RESP",response);
+        // console.log("RESP",response);
 
         if (!response.ok) throw new Error("Mail send failed");
         return await response.json();
     };
 
     const handleDownload = async () => {
-        console.log("import.meta.env.VITE_MAIL_SEND_FLG",import.meta.env.VITE_MAIL_SEND_FLG)
-        console.log("import.meta.env.VITE_MAIL_API_URL",import.meta.env.VITE_MAIL_API_URL)
+        // console.log("import.meta.env.VITE_MAIL_SEND_FLG",import.meta.env.VITE_MAIL_SEND_FLG)
+        // console.log("import.meta.env.VITE_MAIL_API_URL",import.meta.env.VITE_MAIL_API_URL)
         if (import.meta.env.VITE_MAIL_SEND_FLG === "1") {
-            console.log("DEBUG")
+            // console.log("DEBUG")
             try {
                 await sendMail("PNG");
             } catch (err) {
@@ -211,7 +211,7 @@ function GeneratePoster() {
             }
         });
     };
-    console.log("formData", formData)
+    // console.log("formData", formData)
     const cropperRef1 = useRef(null);
     const cropperRef2 = useRef(null);
     const [croppedImage1, setCroppedImage1] = useState(null);
