@@ -113,10 +113,12 @@ function GeneratePoster() {
     const sendMail = async (val) => {
         // console.log("VAL",val)
         const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
+            redirect: "follow",
             method: "POST",
             // mode: "no-cors", 
             headers: {
-                "Content-Type": "application/json",
+                // "Content-Type": "application/json",
+                "Content-Type": "text/plain;charset=utf-8",
             },
             body: JSON.stringify({
                 email: "1rn17ee009.bharathbm@gmail.com",
