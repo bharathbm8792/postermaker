@@ -10,7 +10,7 @@ import MissingPoster from "./MissingPoster.jsx";
 import MissingPoster2Images from "./MissingPoster2Images.jsx";
 import FoundPoster from "./FoundPoster.jsx";
 import FoundPoster2Images from "./FoundPoster2Images.jsx";
-import Loader from './components/Loader/Progress.jsx';
+import Loader from '../Loader/Progress.jsx';
 
 
 function getCroppedImg(imageSrc, croppedAreaPixels) {
@@ -65,7 +65,7 @@ function GeneratePoster() {
     const cropperRef2 = useRef(null);
     const [croppedImage1, setCroppedImage1] = useState(null);
     const [croppedImage2, setCroppedImage2] = useState(null);
-    consr[loading, setLoading] = useState(false);
+    const[loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!formData) {
@@ -108,7 +108,38 @@ function GeneratePoster() {
 
         // console.log("Cropped Image Updated:", croppedDataUrl);
     };
-
+    const compressImage = async (dataUrl, maxSizeKB = 10, maxWidth = 300) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = "Anonymous"; // Prevents CORS issues with some sources
+          img.src = dataUrl;
+      
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const scale = Math.min(1, maxWidth / img.width); // only downscale
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+      
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+            let quality = 0.7;
+            let compressed = canvas.toDataURL("image/jpeg", quality);
+      
+            // Iteratively reduce quality until under size
+            while (compressed.length / 1024 > maxSizeKB && quality > 0.1) {
+              quality -= 0.1;
+              compressed = canvas.toDataURL("image/jpeg", quality);
+            }
+      
+            resolve(compressed);
+          };
+      
+          img.onerror = (err) => reject("Failed to load image for compression");
+        });
+      };
+      
+      
     const handleCropConfirm = async () => {
         if (image && croppedAreaPixels) {
             const croppedImg = await getCroppedImg(image, croppedAreaPixels);
@@ -118,6 +149,25 @@ function GeneratePoster() {
         }
     };
     const sendMail = async (val) => {
+        let compressedImage1 = "";
+        let compressedImage2 = "";
+        let compressedImage3 = "";
+        
+        if (croppedImage1) {
+          compressedImage1 = await compressImage(croppedImage1);
+        //   console.log("compressedImage1 size:", (compressedImage1.length / 1024).toFixed(2), "KB");
+        }
+        
+        if (croppedImage2) {
+          compressedImage2 = await compressImage(croppedImage2);
+        //   console.log("compressedImage2 size:", (compressedImage2.length / 1024).toFixed(2), "KB");
+        }
+        
+        if (croppedImage) {
+          compressedImage3 = await compressImage(croppedImage);
+        //   console.log("compressedImage3 size:", (compressedImage3.length / 1024).toFixed(2), "KB");
+        }
+        // console.log("compressedImage1",compressedImage1,"compressedImage2",compressedImage2,"compressedImage3",compressedImage3)
 
         const response = await fetch(import.meta.env.VITE_MAIL_API_URL, {
             redirect: "follow",
@@ -130,6 +180,7 @@ function GeneratePoster() {
             body: JSON.stringify({
                 email: "1rn17ee009.bharathbm@gmail.com",
                 subject: `New Poster Downloaded as ${val}`,
+                numofImages: selectedOption || "",
                 heading: formData?.Heading || "",
                 petType: formData?.petType || "",
                 name: formData?.Name || "",
@@ -156,10 +207,10 @@ function GeneratePoster() {
                 foundLandmark: formData?.FoundLandmark || "",
                 foundIdentification: formData?.FoundIdentification || "",
                 rescuerContact: formData?.RescuerContact || "",
-                //images commented as request size is increasing and apps script is not able to handle it
-                // image1: croppedImage1 || "",
-                // image2: croppedImage2 || "",
-                // image3: croppedImage || "",
+                //images commented as it is not possible to display image without storing somewhere..
+                // image1: compressedImage1 || "",
+                // image2: compressedImage2 || "",
+                // image3: compressedImage3 || "",
             }),
         });
         // console.log("RESP",response);
@@ -502,7 +553,7 @@ function GeneratePoster() {
                     Edit Details
                 </button>
             </div>
-            {loading && <Loader />}
+            {loading && <Loader message="Downloading... Please Wait"/>}
         </div>
     );
 }
