@@ -19,7 +19,7 @@ function Footer() {
             <div className={styles.versionContainer}>
                 <div className={styles.version}>
                     v {import.meta.env.VITE_APP_VER}
-                    <span className={styles.tooltip}>Version {import.meta.env.VITE_APP_VER}</span> {/* Tooltip */}
+                    <span className={styles.tooltip}>Version {import.meta.env.VITE_APP_VER}</span>
                 </div>
             </div>
 

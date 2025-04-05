@@ -2,6 +2,7 @@ import styles from './PosterInputs.module.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import Select from 'react-select';
 import { useState } from 'react';
+import { IoCopyOutline } from "react-icons/io5";
 
 const PosterInputs = () => {
     const navigate = useNavigate();
@@ -73,6 +74,7 @@ const PosterInputs = () => {
     });
 
     // const [textAreaInput, setTextAreaInput] = useState("");
+    const [copied, setCopied] = useState(false);
 
 
     const PetOptions = [
@@ -382,6 +384,48 @@ const PosterInputs = () => {
         return data;
     };
 
+
+
+    const missingText = `
+    Missing Dog / Cat
+    Name:
+    Age:
+    Gender:
+    Breed:
+    Neutered or not: 
+    Collar colour:
+    Last seen: 
+    Landmark:
+    Missing date:
+    Missing time:
+    Identification:
+    Contact: `;
+
+    const foundText = `
+    Lost Dog / Cat Found
+    Expected age:
+    Gender:
+    Breed:
+    Collar colour:
+    Found place:
+    Landmark:
+    Found date:
+    Found time:
+    Identification:
+    Rescuer's contact number: `;
+
+    const handleCopy = async (textToCopy) => {
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            setCopied(true);
+
+            setTimeout(() => setCopied(false), 2000);
+
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
+
     return (
         <div className={styles.overallContainer}>
             <button className={styles.backButton} onClick={handleBackClick}>BACK</button>
@@ -419,7 +463,21 @@ const PosterInputs = () => {
                                 className={styles.responsiveTextarea}
                             />
                         </div>
-                        <button className={styles.autoFillButton} onClick={handleAutofill}>Autofill</button>
+                        <div className={styles.autoFillBtnContainer}>
+                            <button className={styles.autoFillButton} onClick={handleAutofill} title='Click to autofill the data'>Autofill</button>
+                            <div className={styles.copyContainer}>
+                                <button onClick={() => handleCopy(missingText)} title="Click to copy text" className={styles.copyIcon}>
+                                    <IoCopyOutline size={18} />
+                                </button>
+
+                                {copied && (
+                                    <span className={styles.copiedText}>
+                                        Copied to Clipboard!
+                                    </span>
+                                )}
+                            </div>
+
+                        </div>
                     </div>
                     <form className={styles.formContainer} onSubmit={handleSubmit}>
 
@@ -653,7 +711,21 @@ const PosterInputs = () => {
                                 className={styles.responsiveTextarea}
                             />
                         </div>
-                        <button className={styles.autoFillButton} onClick={handleAutofillFound}>Autofill</button>
+                        <div className={styles.autoFillBtnContainer}>
+                            <button className={styles.autoFillButton} title='Click to autofill the data' onClick={handleAutofillFound}>Autofill</button>
+                            <div className={styles.copyContainer}>
+                                <button onClick={() => handleCopy(foundText)} title="Click to copy text" className={styles.copyIcon}>
+                                    <IoCopyOutline size={18} />
+                                </button>
+
+                                {copied && (
+                                    <span className={styles.copiedText}>
+                                        Copied to Clipboard!
+                                    </span>
+                                )}
+                            </div>
+
+                        </div>
                     </div>
                     <form className={styles.formContainer} onSubmit={handleFoundSubmit}>
 

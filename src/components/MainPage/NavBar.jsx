@@ -29,8 +29,8 @@ function NavBar() {
                 onClick={() => { setShowModal(true) }}
             />
             <div className={styles.navBarTextcontainer}>
-                <span className={styles.heading}>Missing Pets Bengaluru</span>
-                <span className={styles.heading2}>- Poster Maker Tool</span>
+                <span className={styles.heading} title='Missing Pets Bengaluru'>Missing Pets Bengaluru</span>
+                <span className={styles.heading2} title='Poster Maker Tool'>- Poster Maker Tool</span>
             </div>
 
             {showModal && (
