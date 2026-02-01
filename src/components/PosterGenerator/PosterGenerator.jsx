@@ -11,6 +11,11 @@ import MissingPoster2Images from "./MissingPoster2Images.jsx";
 import FoundPoster from "./FoundPoster.jsx";
 import FoundPoster2Images from "./FoundPoster2Images.jsx";
 import Loader from '../Loader/Progress.jsx';
+const waitForFonts = async () => {
+    if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+    }
+};
 
 
 function getCroppedImg(imageSrc, croppedAreaPixels) {
@@ -234,6 +239,8 @@ function GeneratePoster() {
         }
 
         if (posterRef.current) {
+            await waitForFonts();
+
             const canvas = await html2canvas(posterRef.current, {
                 scale: 4,
                 useCORS: true,
@@ -261,6 +268,8 @@ function GeneratePoster() {
                 console.error("Email failed to send:", err);
             }
         }
+        await waitForFonts();
+
         const canvas = await html2canvas(posterRef.current, {
             scale: 3,
             useCORS: true,
@@ -283,6 +292,8 @@ function GeneratePoster() {
             }
         }
         if (posterRef.current) {
+            await waitForFonts();
+
             const canvas = await html2canvas(posterRef.current, {
                 scale: 4, // Increase for better quality
                 useCORS: true,
@@ -456,7 +467,7 @@ function GeneratePoster() {
                     )}
 
                     {showMissingPoster && selectedOption === 2 && (
-                        <div ref={posterRef}>
+                        <div ref={posterRef}  >
                             <MissingPoster2Images data={formData} image1={croppedImage1} image2={croppedImage2} />
                         </div>
                     )}
