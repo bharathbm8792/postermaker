@@ -482,33 +482,33 @@ function GeneratePoster() {
 
 
                 </div>}
-                                    {showMissingPoster && (
-  <div ref={posterRef}>
-    {formData.missingClicked && selectedOption === 1 && (
-      <MissingPoster data={formData} />
-    )}
+            {showMissingPoster && (
+                <div ref={posterRef}>
+                    {formData.missingClicked && selectedOption === 1 && (
+                        <MissingPoster data={formData} />
+                    )}
 
-    {formData.missingClicked && selectedOption === 2 && (
-      <MissingPoster2Images
-        data={formData}
-        image1={croppedImage1}
-        image2={croppedImage2}
-      />
-    )}
+                    {formData.missingClicked && selectedOption === 2 && (
+                        <MissingPoster2Images
+                            data={formData}
+                            image1={croppedImage1}
+                            image2={croppedImage2}
+                        />
+                    )}
 
-    {formData.foundClicked && selectedOption === 1 && (
-      <FoundPoster data={formData} />
-    )}
+                    {formData.foundClicked && selectedOption === 1 && (
+                        <FoundPoster data={formData} />
+                    )}
 
-    {formData.foundClicked && selectedOption === 2 && (
-      <FoundPoster2Images
-        data={formData}
-        image1={croppedImage1}
-        image2={croppedImage2}
-      />
-    )}
-  </div>
-)}
+                    {formData.foundClicked && selectedOption === 2 && (
+                        <FoundPoster2Images
+                            data={formData}
+                            image1={croppedImage1}
+                            image2={croppedImage2}
+                        />
+                    )}
+                </div>
+            )}
             {formData.foundClicked === true &&
                 <div className={styles.buttonContainer}>
                     {selectedOption === 1 && (
