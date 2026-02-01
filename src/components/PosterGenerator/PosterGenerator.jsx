@@ -407,11 +407,7 @@ function GeneratePoster() {
                                         }}
                                         crop={onCropComplete}
                                     />
-                                    {/* <div className={styles.buttonContainer} style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
-                                    <button onClick={handleCropConfirm} className={styles.confirmButton}>
-                                        Confirm Crop
-                                    </button>
-                                </div> */}
+
                                 </div>
                             )}
                         </div>
@@ -420,11 +416,28 @@ function GeneratePoster() {
                     <p className={styles.text}>Generated Poster</p>
                     <br />
 
-                    {showMissingPoster && selectedOption === 1 && (
+                    {/* {showMissingPoster && selectedOption === 1 && (
                         <div ref={posterRef} >
                             <MissingPoster data={formData} ref={posterRef} />
                         </div>
                     )}
+                    {showMissingPoster && selectedOption === 2 && (
+                        <div ref={posterRef}  >
+                            <MissingPoster2Images data={formData} image1={croppedImage1} image2={croppedImage2} />
+                        </div>
+                    )}
+                    {showMissingPoster && selectedOption === 1 && (
+                        <div ref={posterRef} >
+                            <FoundPoster data={formData} ref={posterRef} />
+                        </div>
+                    )}
+
+                    {showMissingPoster && selectedOption === 2 && (
+                        <div ref={posterRef}>
+                            <FoundPoster2Images data={formData} image1={croppedImage1} image2={croppedImage2} />
+                        </div>
+                    )} */}
+
                     {selectedOption === 2 && (
                         <div>
                             <input type="file" accept="image/*" onChange={handleImageUpload} />
@@ -466,13 +479,36 @@ function GeneratePoster() {
                         </div>
                     )}
 
-                    {showMissingPoster && selectedOption === 2 && (
-                        <div ref={posterRef}  >
-                            <MissingPoster2Images data={formData} image1={croppedImage1} image2={croppedImage2} />
-                        </div>
-                    )}
+
 
                 </div>}
+                                    {showMissingPoster && (
+  <div ref={posterRef}>
+    {formData.missingClicked && selectedOption === 1 && (
+      <MissingPoster data={formData} />
+    )}
+
+    {formData.missingClicked && selectedOption === 2 && (
+      <MissingPoster2Images
+        data={formData}
+        image1={croppedImage1}
+        image2={croppedImage2}
+      />
+    )}
+
+    {formData.foundClicked && selectedOption === 1 && (
+      <FoundPoster data={formData} />
+    )}
+
+    {formData.foundClicked && selectedOption === 2 && (
+      <FoundPoster2Images
+        data={formData}
+        image1={croppedImage1}
+        image2={croppedImage2}
+      />
+    )}
+  </div>
+)}
             {formData.foundClicked === true &&
                 <div className={styles.buttonContainer}>
                     {selectedOption === 1 && (
@@ -505,11 +541,7 @@ function GeneratePoster() {
                             )}
                         </div>
                     )}
-                    {showMissingPoster && selectedOption === 1 && (
-                        <div ref={posterRef} >
-                            <FoundPoster data={formData} ref={posterRef} />
-                        </div>
-                    )}
+
                     {selectedOption === 2 && (
                         <div>
                             <input type="file" accept="image/*" onChange={handleImageUpload} />
@@ -551,11 +583,7 @@ function GeneratePoster() {
                         </div>
                     )}
 
-                    {showMissingPoster && selectedOption === 2 && (
-                        <div ref={posterRef}>
-                            <FoundPoster2Images data={formData} image1={croppedImage1} image2={croppedImage2} />
-                        </div>
-                    )}
+
 
                 </div>
             }
